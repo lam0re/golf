@@ -1,0 +1,11 @@
+#!/usr/bin/perl
+use POSIX;
+use BSD::Resource;
+use Proc::Background qw(timeout_system);
+
+setgid(1000);
+setuid(1000);
+setrlimit('RLIMIT_NPROC', 200, 250);
+
+my $input = shift;
+timeout_system(1, 'php', '/foo/input.php', $input);
